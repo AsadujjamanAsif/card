@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Fireworks Card</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background: radial-gradient(circle, #ff9a9e, #fad0c4, #fbc2eb);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .card {
+            width: 60%;
+            background: #ffffffdd;
+            border-radius: 20px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 8px rgba(255, 105, 135, 0.5);
+        }
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            margin: 20px 0;
+        }
+        canvas {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>শুভ বিবাহবার্ষিকী, মিম!</h1>
+        <p>তোমার ভালোবাসাই আমার জীবনের সবচেয়ে বড় উপহার।  
+        আমি তোমাকে চিরকাল ভালোবাসব।</p>
+        <canvas id="fireworks" width="400" height="200"></canvas>
+        <button onclick="alert('Happy Anniversary, Mim! Love, Asif ❤️')">Click for Love</button>
+    </div>
+    <script>
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+
+        function randomColor() {
+            return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+        }
+
+        function drawRose(x, y, radius, petals) {
+            const color = randomColor();
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            for (let i = 0; i < petals; i++) {
+                const angle = (i * Math.PI * 2) / petals;
+                const petalX = Math.cos(angle) * radius;
+                const petalY = Math.sin(angle) * radius;
+                ctx.moveTo(0, 0);
+                ctx.quadraticCurveTo(petalX, petalY, 0, 0);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawFirework() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const radius = Math.random() * 30 + 10;
+            const petals = Math.floor(Math.random() * 6) + 5; // 5-10 petals
+            drawRose(x, y, radius, petals);
+        }
+
+        setInterval(drawFirework, 500);
+    </script>
+</body>
+</html>
